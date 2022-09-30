@@ -1,6 +1,8 @@
 package a_simple;
 
 
+import asserts.PersonAssert;
+import io.ytvnr.Person;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +35,9 @@ class AssertJSimpleAssertionsTest {
     // Will fail and its wanted
     @Test
     void assertion_description() {
-        Assertions.assertThat(true).withFailMessage("The boolean should be false and it is '%b'", true).isFalse();
+        Assertions.assertThat(true)
+                .withFailMessage("The boolean should be false and it is '%b'", true)
+                .isFalse();
     }
 
     @Test
@@ -63,5 +67,12 @@ class AssertJSimpleAssertionsTest {
         then(thrown)
                 .isInstanceOf(ArrayIndexOutOfBoundsException.class)
                 .hasMessageContaining("10");
+    }
+
+    @Test
+    void custom_assertion() {
+        PersonAssert.assertThat(Person.buildSherlock())
+                .hasName("Sherlock")
+                .hasStreet("Baker Street");
     }
 }
